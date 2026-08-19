@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:layoutsVersion='3' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+  <head>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <b:include data='blog' name='all-head-content'/>
+    <title><data:blog.pageTitle/></title>
+    <b:skin><![CDATA[
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --panel-2: #1f2937;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+        --accent-2: #22c55e;
+        --border: rgba(148,163,184,.25);
+        --shadow: 0 18px 45px rgba(15,23,42,.35);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #020817 0%, #0f172a 100%);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .anime-shell {
+        max-width: 1220px;
+        margin: 0 auto;
+        padding: 32px 18px 60px;
+      }
+
+      .anime-topbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .anime-heading {
+        font-size: 30px;
+        line-height: 1.2;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .anime-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .anime-controls select,
+      .anime-controls input,
+      .anime-controls button {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 11px 14px;
+        font-size: 14px;
+        background: rgba(15, 23, 42, 0.85);
+        color: var(--text);
+      }
+
+      .anime-controls input {
+        min-width: 220px;
+      }
+
+      .anime-controls button {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #03131d;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .anime-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+      }
+
+      .anime-card {
+        background: rgba(17, 24, 39, 0.9);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform .2s ease, border-color .2s ease;
+      }
+
+      .anime-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(56, 189, 248, .8);
+      }
+
+      .anime-card img {
+        display: block;
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        background: #0b1220;
+      }
+
+      .anime-info {
+        padding: 14px 14px 16px;
+      }
+
+      .anime-title {
+        font-size: 15px;
+        font-weight: 700;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 42px;
+        margin: 0 0 10px;
+      }
+
+      .anime-meta {
+        color: var(--muted);
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .anime-link {
+        display: inline-block;
+        text-decoration: none;
+        color: #dbeafe;
+        background: rgba(59, 130, 246, .12);
+        border: 1px solid rgba(59,130,246,.35);
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .anime-empty,
+      .anime-loading {
+        padding: 28px;
+        text-align: center;
+        color: var(--muted);
+        border: 1px dashed var(--border);
+        border-radius: 16px;
+        background: rgba(15,23,42,.5);
+      }
+
+      .anime-pager {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+      }
+
+      .anime-pager button {
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: rgba(17,24,39,.9);
+        color: var(--text);
+        border: 1px solid var(--border);
+        cursor: pointer;
+      }
+
+      .anime-pager button[disabled] {
+        opacity: .45;
+        cursor: not-allowed;
+      }
+    ]]></b:skin>
+  </head>
+  <body>
+    <b:section class='header' id='header' maxwidgets='1' showaddelement='yes'>
+      <b:widget id='Header1' locked='true' title='Judul Blog' type='Header' visible='true' version='2'/>
+    </b:section>
+
+    <main class='anime-shell'>
+      <div class='anime-topbar'>
+        <h1 class='anime-heading'>Anime Update</h1>
+        <div class='anime-controls'>
+          <select id='sourceSelect'>
+            <option value='otakudesu'>Otakudesu</option>
+            <option value='kuramanime'>Kuramanime</option>
+            <option value='oploverz'>Oploverz</option>
+          </select>
+          <input id='searchInput' placeholder='Cari anime...' type='text'/>
+          <button id='searchButton' type='button'>Cari</button>
+        </div>
+      </div>
+
+      <div id='animeWidgetRoot'></div>
+    </main>
+
+    <b:section class='main' id='main' showaddelement='yes'>
+      <b:widget id='HTML1' locked='false' title='Anime API' type='HTML' version='2'>
+        <b:includable id='main'>
+          <script><![CDATA[
+            (function() {
+              const root = document.getElementById('animeWidgetRoot');
+              if (!root) return;
+
+              const defaults = {
+                source: 'otakudesu',
+                page: 1,
+                query: '',
+                perPage: 12,
+                apiBase: 'https://YOUR-API-URL',
+              };
+
+              const state = {
+                source: defaults.source,
+                page: defaults.page,
+                query: defaults.query,
+              };
+
+              function setLoading(message) {
+                root.innerHTML = '<div class="anime-loading">' + message + '</div>';
+              }
+
+              function renderCards(items) {
+                if (!items || !items.length) {
+                  root.innerHTML = '<div class="anime-empty">Data anime tidak ditemukan.</div>';
+                  return;
+                }
+
+                const cards = items.map(function(item) {
+                  const title = item.title || 'Judul Anime';
+                  const poster = item.poster || 'https://placehold.co/600x900/0f172a/94a3b8?text=Anime';
+                  const episode = item.episodes || item.episode || 'N/A';
+                  const url = item.link || item.otakudesuUrl || item.animeUrl || '#';
+                  const meta = item.latestReleaseDate || item.releaseDay || 'Update terbaru';
+
+                  return '<article class="anime-card">' +
+                    '<img src="' + poster + '" alt="' + title + '" loading="lazy"/>' +
+                    '<div class="anime-info">' +
+                    '<p class="anime-title">' + title + '</p>' +
+                    '<div class="anime-meta"><span>Ep ' + episode + '</span><span>' + meta + '</span></div>' +
+                    '<a class="anime-link" href="' + url + '" target="_blank" rel="noopener noreferrer">Lihat Detail</a>' +
+                    '</div>' +
+                    '</article>';
+                }).join('');
+
+                root.innerHTML = '<div class="anime-grid">' + cards + '</div>';
+              }
+
+              async function fetchAnime() {
+                setLoading('Memuat anime...');
+
+                try {
+                  const endpoint = state.query
+                    ? state.apiBase + '/' + state.source + '/search?q=' + encodeURIComponent(state.query)
+                    : state.apiBase + '/' + state.source + '/ongoing?page=' + state.page;
+
+                  const response = await fetch(endpoint, { mode: 'cors' });
+                  if (!response.ok) {
+                    throw new Error('Gagal mengambil data');
+                  }
+
+                  const result = await response.json();
+                  const data = result && result.data ? result.data : {};
+                  const list = data.animeList || data.list || [];
+
+                  renderCards(list);
+                } catch (error) {
+                  root.innerHTML = '<div class="anime-empty">Gagal memuat data anime. Pastikan URL API sudah benar.</div>';
+                }
+              }
+
+              const sourceSelect = document.getElementById('sourceSelect');
+              const searchInput = document.getElementById('searchInput');
+              const searchButton = document.getElementById('searchButton');
+
+              sourceSelect.addEventListener('change', function() {
+                state.source = this.value;
+                state.page = 1;
+                state.query = '';
+                searchInput.value = '';
+                fetchAnime();
+              });
+
+              searchButton.addEventListener('click', function() {
+                state.query = searchInput.value.trim();
+                state.page = 1;
+                fetchAnime();
+              });
+
+              searchInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                  state.query = searchInput.value.trim();
+                  state.page = 1;
+                  fetchAnime();
+                }
+              });
+
+              fetchAnime();
+            })();
+          ]]></script>
+        </b:includable>
+      </b:widget>
+    </b:section>
+
+    <b:section class='footer' id='footer' maxwidgets='1' showaddelement='yes'>
+      <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true' version='2'/>
+    </b:section>
+  </body>
+</html>
